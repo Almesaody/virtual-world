@@ -4,6 +4,15 @@ class Graph {
         this.segments = segments;
     }
 
+    static load(info) {
+       const points = info.points.map((i) => new Point(i.x, i.y));
+       const segments = info.segments.map((i) => new Segment(
+          points.find((p) => p.equals(i.p1)),
+          points.find((p) => p.equals(i.p2))
+       ));
+       return new Graph(points, segments);
+    }
+ 
     addPoint(point) {
         this.points.push(point);
     }
@@ -19,7 +28,7 @@ class Graph {
         }
         return false;
     }
-    
+
     removePoint(point) {
         const segs = this.getSegmentsWithPoint(point);
         for(const seg of segs) {
@@ -31,13 +40,13 @@ class Graph {
     addSegment(seg) {
         this.segments.push(seg);
     }
-
-    containsPoint(seg) {
+ 
+    containsSegment(seg) {
         return this.segments.find((s) => s.equals(seg));
     }
 
-    tryAddPoint(seg) {
-        if(!this.containsPoint(seg) && !seg.p1.equals(seg.p2)) {
+    tryAddSegment(seg) {
+        if(!this.containsSegment(seg) && !seg.p1.equals(seg.p2)) {
             this.addSegment(seg);
             return true;
         }
