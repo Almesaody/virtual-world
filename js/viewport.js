@@ -30,7 +30,7 @@ class Viewport {
     getMouse(evt, subtractDragOffset = false) {
         const p = new Point(
             (evt.offsetX - this.center.x) * this.zoom - this.offset.x,
-            (evt.offsetY - this.center.y) * this.zoom - this.offset.y,
+            (evt.offsetY - this.center.y) * this.zoom - this.offset.y
         );
         return subtractDragOffset ? subtract(p, this.drag.offset) : p;
     }
